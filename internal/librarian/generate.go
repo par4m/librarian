@@ -95,7 +95,7 @@ func runGenerate(ctx context.Context) error {
 	}
 
 	startTime := time.Now()
-	workRoot, err := createWorkRoot(startTime)
+	workRoot, err := createWorkRoot(startTime, flagWorkRoot)
 	if err != nil {
 		return err
 	}

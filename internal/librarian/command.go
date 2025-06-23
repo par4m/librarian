@@ -116,7 +116,7 @@ func cloneOrOpenLanguageRepo(workRoot string) (*gitrepo.Repository, error) {
 // language repos should construct the command state themselves.
 func createCommandStateForLanguage(ctx context.Context) (*commandState, error) {
 	startTime := time.Now()
-	workRoot, err := createWorkRoot(startTime)
+	workRoot, err := createWorkRoot(startTime, flagWorkRoot)
 	if err != nil {
 		return nil, err
 	}
@@ -204,10 +204,10 @@ func formatTimestamp(t time.Time) string {
 	return t.Format(yyyyMMddHHmmss)
 }
 
-func createWorkRoot(t time.Time) (string, error) {
-	if flagWorkRoot != "" {
-		slog.Info(fmt.Sprintf("Using specified working directory: %s", flagWorkRoot))
-		return flagWorkRoot, nil
+func createWorkRoot(t time.Time, workRoot string) (string, error) {
+	if workRoot != "" {
+		slog.Info(fmt.Sprintf("Using specified working directory: %s", workRoot))
+		return workRoot, nil
 	}
 
 	path := filepath.Join(os.TempDir(), fmt.Sprintf("librarian-%s", formatTimestamp(t)))
